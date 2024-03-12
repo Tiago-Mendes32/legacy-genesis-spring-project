@@ -21,4 +21,6 @@ public class UserService {
 	public User findById(String id) throws Exception {
 		return repository.findById(id).orElseThrow(()-> new Exception("Entity not found"));
 	}
+	
+	
 }

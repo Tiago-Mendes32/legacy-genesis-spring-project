@@ -8,15 +8,16 @@ import com.legacy.model.entities.User;
 import com.legacy.model.repositories.UserRepository;
 
 @Configuration
-public class InstanciationTest implements CommandLineRunner{
+public class InstanciationTest implements CommandLineRunner {
 
 	@Autowired
 	private UserRepository userRepository;
-	
+
 	@Override
 	public void run(String... args) throws Exception {
+		userRepository.deleteAll();
+
 		User user1 = new User(null, "Tiago", "Mendes de Góes", "50434220841", "tiagogoes75@gmail.com", "32364893");
-	
-	userRepository.save(user1);
+		userRepository.save(user1);
 	}
 }
