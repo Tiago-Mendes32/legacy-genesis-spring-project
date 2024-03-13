@@ -27,8 +27,13 @@ public class UserService {
 		return repository.findById(id).orElseThrow(() -> new Exception("Entity not found"));
 	}
 
-	public User findByDocument(String doc) {
-		return repository.findByDocument(doc);
+	public User findByDocument(String doc) throws Exception {
+		User obj = repository.findByDocument(doc);
+		if(obj == null) {
+			throw new Exception("Entity not found");
+		}
+		
+		return obj;
 	}
 	
 	public User insert(User obj) {
@@ -39,7 +44,8 @@ public class UserService {
 		repository.delete(obj);
 	}
 
-	public void delete(String id) {
+	public void deleteById(String id) throws Exception {
+		findById(id);
 		repository.deleteById(id);
 	}
 
@@ -61,6 +67,10 @@ public class UserService {
 	public UserDTO getUserDTOById(String userId) throws Exception {
 		User user = findById(userId);
 		return userMapper.userToUserDTO(user);
+	}
+	
+	public UserDTO getUserDTO(User obj){
+		return userMapper.userToUserDTO(obj);
 	}
 
 	public List<UserDTO> getUserDTOList(List<User> list) {
