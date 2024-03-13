@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.legacy.model.entities.User;
+import com.legacy.model.entities.DTO.UserDTO;
 import com.legacy.model.services.UserService;
 
 @RestController
@@ -19,8 +20,10 @@ public class UserController {
 	private UserService service;
 	
 	@GetMapping
-	public List<User> findAll() {
-		return service.findAll();
+	public List<UserDTO> findAll() {
+		List<User> list = service.findAll();
+		List<UserDTO> listDTO = service.getUserDTOList(list);
+		return listDTO;
 	}
 	
 	@GetMapping("/{id}")
