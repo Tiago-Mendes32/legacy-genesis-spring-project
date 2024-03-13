@@ -9,6 +9,7 @@ import com.legacy.config.mappers.UserMapper;
 import com.legacy.model.entities.User;
 import com.legacy.model.entities.DTO.UserDTO;
 import com.legacy.model.repositories.UserRepository;
+import com.legacy.model.services.exceptions.DocumentAlreadyExistsException;
 import com.legacy.model.services.exceptions.EntityNotFoundException;
 
 @Service
@@ -31,13 +32,16 @@ public class UserService {
 	public User findByDocument(String doc) throws Exception {
 		User obj = repository.findByDocument(doc);
 		if (obj == null) {
-			throw new Exception("Entity not found");
+			throw new EntityNotFoundException("Entity not found - Document: " + doc);
 		}
-
 		return obj;
 	}
 
-	public User insert(User obj) throws Exception {		
+	public User insert(User obj) throws Exception {
+		User refObj = findByDocument(obj.getDocument());
+		if(refObj != null) {
+			throw new DocumentAlreadyExistsException("Document already exists in user by id: " + refObj.getId());
+		}
 		return repository.save(obj);
 	}
 

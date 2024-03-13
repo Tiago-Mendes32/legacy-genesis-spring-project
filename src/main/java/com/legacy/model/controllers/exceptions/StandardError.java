@@ -2,11 +2,14 @@ package com.legacy.model.controllers.exceptions;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class StandardError implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
-	private LocalDate timestamp;
+	private LocalDateTime timestamp;
 	private Integer status;
 	private String error;
 	private String message;
@@ -15,7 +18,7 @@ public class StandardError implements Serializable{
 	public StandardError() {
 	}
 
-	public StandardError(LocalDate timestamp, Integer status, String error, String message, String path) {
+	public StandardError(LocalDateTime timestamp, Integer status, String error, String message, String path) {
 		this.timestamp = timestamp;
 		this.status = status;
 		this.error = error;
@@ -23,11 +26,11 @@ public class StandardError implements Serializable{
 		this.path = path;
 	}
 
-	public LocalDate getTimestamp() {
+	public LocalDateTime getTimestamp() {
 		return timestamp;
 	}
 
-	public void setTimestamp(LocalDate timestamp) {
+	public void setTimestamp(LocalDateTime timestamp) {
 		this.timestamp = timestamp;
 	}
 
