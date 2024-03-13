@@ -22,5 +22,31 @@ public class UserService {
 		return repository.findById(id).orElseThrow(()-> new Exception("Entity not found"));
 	}
 	
+	public User insert(User obj) {
+		return repository.save(obj);
+	}
+	
+	public void delete(User obj) {
+		repository.delete(obj);
+	}
+	
+	public void delete(String id) {
+		repository.deleteById(id);
+	}
+	
+	public User update(User obj,  String id) throws Exception {
+		User refObj = findById(id);
+		return updateData(obj, refObj);
+	}
+
+	private User updateData(User obj, User refObj) {
+		refObj.setDocument(obj.getDocument());
+		refObj.setEmail(obj.getEmail());
+		refObj.setFirstName(obj.getFirstName());
+		refObj.setLastName(obj.getLastName());
+		refObj.setPassword(obj.getPassword());
+		
+		return refObj;
+	}
 	
 }
