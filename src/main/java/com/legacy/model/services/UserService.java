@@ -9,6 +9,7 @@ import com.legacy.config.mappers.UserMapper;
 import com.legacy.model.entities.User;
 import com.legacy.model.entities.DTO.UserDTO;
 import com.legacy.model.repositories.UserRepository;
+import com.legacy.model.services.exceptions.EntityNotFoundException;
 
 @Service
 public class UserService {
@@ -24,7 +25,7 @@ public class UserService {
 	}
 
 	public User findById(String id) throws Exception {
-		return repository.findById(id).orElseThrow(() -> new Exception("Entity not found"));
+		return repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Entity not found - ID: " + id));
 	}
 
 	public User findByDocument(String doc) throws Exception {
