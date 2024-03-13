@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.legacy.model.entities.User;
 @Repository
 public interface UserRepository extends MongoRepository<User, String>{
+	
+	public User findByDocument(String doc);
 }

@@ -27,6 +27,10 @@ public class UserService {
 		return repository.findById(id).orElseThrow(() -> new Exception("Entity not found"));
 	}
 
+	public User findByDocument(String doc) {
+		return repository.findByDocument(doc);
+	}
+	
 	public User insert(User obj) {
 		return repository.save(obj);
 	}

@@ -30,4 +30,6 @@ public class UserController {
 	public User findById(@PathVariable String id) throws Exception {
 		return service.findById(id);
 	}
+	
+	
 }
