@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,11 +23,23 @@ public class UserController {
 	@Autowired
 	private UserService service;
 	
-	@GetMapping
-	public List<UserDTO> findAll() {
+	@GetMapping("/dto")
+	public List<UserDTO> findAllDTO() {
 		List<User> list = service.findAll();
 		List<UserDTO> listDTO = service.getUserDTOList(list);
 		return listDTO;
+	}
+	
+	@GetMapping("/dto/{id}")
+	public UserDTO findByIdDTO(@PathVariable String id) throws Exception {
+		 User obj = service.findById(id);
+		 return service.getUserDTO(obj);
+	}
+	
+	@GetMapping
+	public List<User> findAll() {
+		List<User> list = service.findAll();
+		return list;
 	}
 	
 	@GetMapping("/{id}")
@@ -40,9 +53,9 @@ public class UserController {
 	}
 	
 	@PostMapping
-	public UserDTO insert(User obj){
-		obj = service.insert(obj);
-		return service.getUserDTO(obj);
+	public UserDTO insert(@RequestBody User obj) throws Exception{
+		User newObj = service.insert(obj);
+		return service.getUserDTO(newObj);
 	}
 	
 	@PutMapping

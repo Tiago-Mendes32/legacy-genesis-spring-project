@@ -29,14 +29,14 @@ public class UserService {
 
 	public User findByDocument(String doc) throws Exception {
 		User obj = repository.findByDocument(doc);
-		if(obj == null) {
+		if (obj == null) {
 			throw new Exception("Entity not found");
 		}
-		
+
 		return obj;
 	}
-	
-	public User insert(User obj) {
+
+	public User insert(User obj) throws Exception {		
 		return repository.save(obj);
 	}
 
@@ -68,8 +68,8 @@ public class UserService {
 		User user = findById(userId);
 		return userMapper.userToUserDTO(user);
 	}
-	
-	public UserDTO getUserDTO(User obj){
+
+	public UserDTO getUserDTO(User obj) {
 		return userMapper.userToUserDTO(obj);
 	}
 
